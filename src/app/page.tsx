@@ -68,18 +68,19 @@ export default function Home() {
     "repoData",
     async () => {
       const { data } = await axios.get(
-        "https://api.openweathermap.org/data/2.5/forecast?q=pune&appid=14694ec523d67ef5aa00e1231626915d&cnt=56"
+        `https://api.openweathermap.org/data/2.5/forecast?q=pune&appid=${process.env.NEXT_PUBLIC_WEATHER_KEY}&cnt=56`
       );
       return data;
     }
-
-    // fetch(
-    //   "https://api.openweathermap.org/data/2.5/forecast?q=pune&appid=14694ec523d67ef5aa00e1231626915d&cnt=56"
-    // ).then((res) => res.json())
   );
-  console.log(data);
+  console.log(data?.city.name);
 
-  if (isLoading) return "Loading...";
+  if (isLoading)
+    return (
+      <div className="flex items-center min-h-screen justify-center">
+        <p className="animate-bounce">Loading...</p>
+      </div>
+    );
 
   return (
     <div className="flex flex-col gap-4 bg-gray-100 min-h-screen">
